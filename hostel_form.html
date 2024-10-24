@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel Registration Form</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Optional CSS for styling -->
+    <script>
+        // Function to display notification messages
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerText = message;
+            document.body.appendChild(notification);
+
+            // Automatically remove notification after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Display messages from URL parameters
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const message = urlParams.get('message');
+            const type = urlParams.get('type');
+            if (message && type) {
+                showNotification(message, type);
+            }
+        };
+
+        // Preview function
+        function previewDetails(event) {
+            event.preventDefault(); // Prevent form submission for preview
+
+            const name = document.getElementById('hostelName').value;
+            const location = document.getElementById('hostelLocation').value;
+            const rent = document.getElementById('hostelRent').value;
+            const contact = document.getElementById('hostelContact').value;
+            const description = document.getElementById('hostelDescription').value;
+
+            document.getElementById('previewName').innerText = name;
+            document.getElementById('previewLocation').innerText = location;
+            document.getElementById('previewRent').innerText = rent;
+            document.getElementById('previewContact').innerText = contact;
+            document.getElementById('previewDescription').innerText = description;
+
+            const fileInput = document.getElementById('hostelImage');
+            const files = fileInput.files;
+
+            const previewContainer = document.getElementById('previewImagesContainer');
+            previewContainer.innerHTML = ''; // Clear previous previews
+
+            if (files.length > 0) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'preview-image'; // Add a class for styling
+                    previewContainer.appendChild(img);
+                }
+                reader.readAsDataURL(files[0]); // Read only the first file
+            }
+
+            // Show preview section
+            document.getElementById('previewSection').style.display = 'block';
+        }
+
+        // Function to submit the form
+        function confirmSubmission() {
+            document.getElementById('hostelForm').submit(); // Submit the form when confirmed
+        }
+    </script>
+    <style>
+        /* General styles for the body */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background:#19585D;
+            color: #fff;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.3);
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: #2575fc;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 1rem;
+            color: #2575fc;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="file"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: none;
+            border-bottom: 2px solid #ccc;
+            border-radius: 5px;
+            background: #f7f7f7;
+            color: #333;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        textarea:focus {
+            border-bottom: 2px solid #2575fc;
+        }
+
+        button {
+            padding: 12px;
+            width: 100%;
+            background-color: #2575fc;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1a57c4;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            color: white;
+            z-index: 1000;
+        }
+
+        .notification.success {
+            background-color: #5cb85c;
+        }
+
+        .notification.error {
+            background-color: #d9534f;
+        }
+
+        /* Preview Section */
+        #previewSection {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h3 {
+            font-size: 2rem;
+            color: #2575fc;
+            text-align: center;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .preview-item {
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .preview-item strong {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: #2575fc;
+        }
+
+        .preview-item p {
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .preview-image {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 10px;
+            display: block;
+            margin: 10px auto; /* Centering images */
+        }
+
+        .confirm-button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .confirm-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Hostel Registration Form</h2>
+    <form id="hostelForm" action="/submit_hostel" method="POST" enctype="multipart/form-data" onsubmit="previewDetails(event);">
+        <div class="form-group">
+            <label for="hostelName">Hostel Name:</label>
+            <input type="text" id="hostelName" name="hostelName" required>
+        </div>
+        <div class="form-group">
+            <label for="hostelLocation">Location:</label>
+            <input type="text" id="hostelLocation" name="hostelLocation" required>
+        </div>
+        <div class="form-group">
+            <label for="hostelRent">Rent:</label>
+            <input type="number" id="hostelRent" name="hostelRent" required>
+        </div>
+        <div class="form-group">
+            <label for="hostelContact">Contact Number:</label>
+            <input type="text" id="hostelContact" name="hostelContact" required>
+        </div>
+        <div class="form-group">
+            <label for="hostelDescription">Description:</label>
+            <textarea id="hostelDescription" name="hostelDescription" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="hostelImage">Upload Image:</label>
+            <input type="file" id="hostelImage" name="hostelImage" accept="image/*" required>
+        </div>        
+        <button type="submit">Preview Submission</button>
+    </form>
+</div>
+
+<!-- Preview Section -->
+<div id="previewSection">
+    <h3>Preview Submission</h3>
+    <div class="preview-grid">
+        <div class="preview-item">
+            <strong>Hostel Name:</strong>
+            <p id="previewName"></p>
+        </div>
+        <div class="preview-item">
+            <strong>Location:</strong>
+            <p id="previewLocation"></p>
+        </div>
+        <div class="preview-item">
+            <strong>Rent:</strong>
+            <p id="previewRent"></p>
+        </div>
+        <div class="preview-item">
+            <strong>Contact Number:</strong>
+            <p id="previewContact"></p>
+        </div>
+        <div class="preview-item">
+            <strong>Description:</strong>
+            <p id="previewDescription"></p>
+        </div>
+    </div>
+    <div id="previewImagesContainer"></div> <!-- Container for image previews -->
+    <button class="confirm-button" onclick="confirmSubmission()">Confirm Submission</button>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Manage Users</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #19585D; /* Dark Green Background */
+            color: #FFFFFF; /* White Text */
+        }
+        h1 {
+            color: #F3FE39; /* Bright Yellow for Header */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            background-color: #FFFFFF; /* White Background for Table */
+            color: #19585D; /* Dark Green Text */
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+        th {
+            background-color: #F3FE39; /* Bright Yellow for Header Cells */
+            color: #19585D; /* Dark Green Text for Header Cells */
+        }
+        tr:hover {
+            background-color: #E1E1E1; /* Light Grey on Row Hover */
+        }
+        tr:nth-child(even) {
+            background-color: #F9F9F9; /* Light Grey for Even Rows */
+        }
+        tr:nth-child(odd) {
+            background-color: #FFFFFF; /* White for Odd Rows */
+        }
+    </style>
+</head>
+<body>
+    <h1>Manage Users</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Admin</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% users.forEach(user => { %>
+            <tr>
+                <td><%= user.name %></td>
+                <td><%= user.email %></td>
+                <td><%= user.isAdmin ? 'Yes' : 'No' %></td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>

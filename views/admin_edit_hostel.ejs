@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Hostel</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #19585D;
+            color: #FFFFFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #FFFFFF;
+            color: #19585D;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #F3FE39;
+            margin-bottom: 30px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #19585D;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        input[type="file"] {
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #F3FE39;
+            color: #19585D;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #2FFFCD;
+            color: #FFFFFF;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Hostel</h1>
+        <form action="/admin/hostels/edit/<%= hostel._id %>" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="hostelName">Hostel Name:</label>
+                <input type="text" name="hostelName" value="<%= hostel.name %>" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="hostelLocation">Location:</label>
+                <input type="text" name="hostelLocation" value="<%= hostel.location %>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="hostelRent">Rent:</label>
+                <input type="number" name="hostelRent" value="<%= hostel.rent %>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="hostelContact">Contact Number:</label>
+                <input type="text" name="hostelContact" value="<%= hostel.contactNumber %>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="hostelDescription">Description:</label>
+                <textarea name="hostelDescription" rows="5"><%= hostel.description %></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="hostelImage">Hostel Image:</label>
+                <input type="file" name="hostelImage">
+                <input type="hidden" name="currentImage" value="<%= hostel.image %>">
+            </div>
+
+            <button type="submit">Update Hostel</button>
+        </form>
+    </div>
+</body>
+</html>

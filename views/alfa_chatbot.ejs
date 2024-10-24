@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hostel/PG Finder Chatbot</title>
+  <link rel="stylesheet" href="/chatbor.css">
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-box" id="chat-box">
+      <% messages.forEach(function(message) { %>
+        <div class="message user"><%= message.user %></div>
+        <div class="message bot"><%= message.bot %></div>
+      <% }) %>
+    </div>
+    <form id="chat-form">
+      <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off">
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <script>
+    const chatForm = document.getElementById('chat-form');
+    const chatBox = document.getElementById('chat-box');
+
+    chatForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const userInput = document.getElementById('user-input').value;
+      appendMessage(userInput, 'user');
+
+      const response = await fetch('/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ message: userInput })
+      });
+      const data = await response.json();
+      appendMessage(data.message, 'bot');
+    });
+
+    function appendMessage(message, sender) {
+      const messageDiv = document.createElement('div');
+      messageDiv.classList.add('message', sender);
+      messageDiv.innerText = message;
+      chatBox.appendChild(messageDiv);
+      document.getElementById('user-input').value = '';
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  </script>
+</body>
+</html>

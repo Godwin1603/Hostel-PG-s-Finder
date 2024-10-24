@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #19585D;
+            color: #FFFFFF;
+        }
+        header {
+            background-color: #20B2AA; /* Soft Teal */
+            color: #19585D;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 5px solid #FF6F61; /* Deep Coral */
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+            letter-spacing: 2px;
+        }
+        header p {
+            font-size: 1.2em;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #FFFFFF;
+            color: #19585D;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        h2 {
+            color: #20B2AA; /* Soft Teal */
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #FF6F61; /* Deep Coral */
+            padding-bottom: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #FF6F61; /* Deep Coral */
+            color: #19585D;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        li:hover {
+            background-color: #20B2AA; /* Soft Teal */
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        a {
+            text-decoration: none;
+            color: #19585D;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: #FF6F61; /* Deep Coral */
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #20B2AA; /* Soft Teal */
+            color: #19585D;
+            font-size: 0.9em;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            border-top: 5px solid #FF6F61; /* Deep Coral */
+        }
+        .btn-logout {
+            display: inline-block;
+            background-color: #FF6F61; /* Deep Coral */
+            color: #19585D;
+            padding: 12px 25px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1em;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+        .btn-logout:hover {
+            background-color: #20B2AA; /* Soft Teal */
+            color: #FFFFFF;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Admin Dashboard</h1>
+        <p>Welcome, <%= user.name %>!</p>
+    </header>
+
+    <div class="container">
+        <!-- Registered Users Section -->
+        <h2>Registered Users</h2>
+        <% if (users.length > 0) { %>
+            <ul>
+                <% users.forEach(function(user) { %>
+                    <li><%= user.name %> - <%= user.email %></li>
+                <% }) %>
+            </ul>
+        <% } else { %>
+            <p>No users found.</p>
+        <% } %>
+
+        <!-- Hostels Section -->
+        <h2>Hostels</h2>
+        <% if (hostels.length > 0) { %>
+            <ul>
+                <% hostels.forEach(function(hostel) { %>
+                    <li><%= hostel.name %> - <%= hostel.location %></li>
+                <% }) %>
+            </ul>
+        <% } else { %>
+            <p>No hostels available.</p>
+        <% } %>
+
+        <!-- Administration Links -->
+        <h2>Administration Links</h2>
+        <ul>
+            <li><a href="/admin_hostels">Manage Hostels</a></li>
+            <li><a href="/admin_new_hostel">Add New Hostel</a></li>
+            <li><a href="/admin/users">Manage Users</a></li>
+        </ul>
+
+        <!-- Logout Link -->
+        <a href="/logout" class="btn-logout">Logout</a>
+    </div>
+
+    <footer>
+        &copy; 2024 Admin Dashboard. All Rights Reserved.
+    </footer>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #19585D; /* Dark Green Background */
+            color: #F3FE39; /* Bright Yellow Text */
+        }
+
+        .card {
+            border: none;
+            background: #fff;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto; /* Center the card */
+        }
+
+        .btn-primary {
+            background-color: #6e8efb; /* Primary Button Color */
+            border: none;
+            border-radius: 30px; /* Rounded corners */
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #a777e3; /* Darker Shade on Hover */
+        }
+
+        /* Notification Styling */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 5px;
+            font-size: 16px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .notification.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .notification.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <div class="card shadow-lg mx-auto">
+            <div class="card-body text-center">
+                <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+                <h2 class="mb-3">Payment Successful!</h2>
+                <p class="lead">Thank you, <strong><%= userName %></strong>, for your payment. Your hostel booking for <strong><%= hostelName %></strong> has been confirmed.</p>
+                <p class="text-muted mb-4">The rent amount of <strong>₹<%= hostelRent %></strong> has been successfully paid.</p>
+                <a href="/hostels" class="btn btn-primary btn-lg">Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Popup -->
+    <div id="notification" class="notification"></div>
+
+    <!-- Notification Script -->
+    <script>
+        // Function to show the notification
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.style.display = 'block';
+
+            // Hide the notification after 3 seconds
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => notification.style.display = 'none', 500);
+            }, 3000);
+        }
+
+        // Check if there's a notification message from the server
+        const urlParams = new URLSearchParams(window.location.search);
+        const message = urlParams.get('message');
+        const type = urlParams.get('type'); // success or error
+
+        if (message && type) {
+            showNotification(message, type);
+        }
+    </script>
+</body>
+</html>
