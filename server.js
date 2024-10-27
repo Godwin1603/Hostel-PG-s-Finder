@@ -292,7 +292,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const bcrypt = require('bcryptjs');
 const multer = require('multer');
-const stripe = require('stripe')('sk_test_51QC0tUGURIQ2I0GsCixPdbXSyw3gpctKKV1jLcSK8WuaHw0tMu0fru2zjMncw62eXKuK8SeHG2L0bgpssW1weeav00oZwv4rj8'); // Replace with your actual Stripe Secret Key
+const stripe = require('stripe')(''); // Replace with your actual Stripe Secret Key
 const port = 3019;
 
 const app = express(); // Initialize the app
