@@ -1,31 +1,25 @@
-{
-  "name": "mangodb2",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "start": "nodemon server.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@google/generative-ai": "^0.21.0",
-    "bcrypt": "^5.1.1",
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.20.3",
-    "ejs": "^3.1.10",
-    "express": "^4.21.1",
-    "express-session": "^1.18.1",
-    "mongodb": "^6.9.0",
-    "mongoose": "^8.7.2",
-    "multer": "^1.4.5-lts.1",
-    "nodemailer": "^6.9.15",
-    "path": "^0.12.7",
-    "socket.io": "^4.8.0",
-    "stripe": "^17.2.1"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.7"
-  },
-  "description": ""
-}
+name: Azure Static Web Apps CI/CD
+
+on:
+  push:
+    branches:
+      - main  # Set a branch to deploy from
+
+jobs:
+  build_and_deploy_job:
+    runs-on: ubuntu-latest
+    name: Build and Deploy Job
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Build and Deploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: 'upload'
+          app_location: '/'  # Adjust if your app is in a subdirectory
+          api_location: 'api'  # Adjust if you have an API
+          output_location: 'build'  # Adjust based on your build output directory
+          app_build_command: 'npm run build'  # Ensure this matches your build script
